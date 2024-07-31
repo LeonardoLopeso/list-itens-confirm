@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lista de itens fixa
     const fixedItems = [
-        { text: "04 Sacos de Gelo", category: "beverage" },
+        { text: "04 Gelo (cubos) 5kg", category: "beverage" },
         { text: "01 Água de Coco (natural) 2L", category: "beverage" },
         { text: "01 Água de Coco (natural) 2L", category: "beverage" },
         { text: "50 Descartáveis (copo, prato, talher)", category: "beverage" },
@@ -118,9 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function addItemToList(list, key, text, name) {
         const li = document.createElement('li');
         li.innerHTML = `
-            <span>${text}</span>
-            <input type="text" class="name-input" placeholder="Seu nome" value="${name}" ${name ? 'disabled' : ''}>
-            <button class="confirm-btn" ${name ? 'disabled' : ''}>${name ? 'Assinado' : 'Não assinado'}</button>
+            <span><i class="bi bi-handbag"></i> ${text}</span>
+            <div class="buttons-container">
+                <input type="text" class="name-input" placeholder="Seu nome" value="${name}" ${name ? 'disabled' : ''}>
+                <button class="confirm-btn" ${name ? 'disabled' : ''}>${name ? 'Assinado' : 'Não assinado'}</button>
+            </div>
         `;
         const nameInput = li.querySelector('.name-input');
         const confirmBtn = li.querySelector('.confirm-btn');

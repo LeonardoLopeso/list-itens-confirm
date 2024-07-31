@@ -100,10 +100,12 @@ a:hover {
     gap: 20px;
     padding: 0 4%;
     margin-top: 20px;
+    width: 100%;
 }
 
 .column {
-    width: 45%;
+    width: 100%;
+    max-width: 620px;
 }
 
 h2 {
@@ -147,8 +149,12 @@ li span {
     color: #333;
     padding-right: 5px;
 }
+.buttons-container {
+    display: flex;
+    align-items: center;
+}
 
-.name-input {
+.buttons-container .name-input {
     flex: 1;
     margin-right: 10px;
     padding: 8px;
@@ -157,10 +163,11 @@ li span {
     font-size: 14px;
 }
 
-.confirm-btn {
+.buttons-container .confirm-btn {
     flex: 1;
     align-items: center;
     height: 35px;
+    padding: 0 10px;
     border: none;
     background-color: #007bff;
     /* background-image: linear-gradient(to left, #FAA632, #C33539); */
@@ -169,7 +176,7 @@ li span {
     cursor: pointer;
 }
 
-.confirm-btn:disabled,
+.buttons-container .confirm-btn:disabled,
 .confirmed-btn {
     background-color: #28a745;
     /* background: rgb(131,58,180);
@@ -182,7 +189,14 @@ li span {
     /* background: linear-gradient(90deg, rgb(58, 180, 103) 0%, rgba(29, 253, 167, 0.393)50%, rgb(69, 252, 209) 100%); */
 }
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: 760px) {
+    .buttons-container {
+        width: 100%;
+    }
+    .buttons-container .name-input {
+        flex: 3;
+    }
+
     .columns {
         flex-direction: column;
         align-items: center;
@@ -192,14 +206,16 @@ li span {
         width: 100%;
         margin-bottom: 20px;
     }
+
+    li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
 }
 
 @media screen and (max-width: 420px) {
-    #beverage-list li span,
-    #praotein-list li span {
-        display: block;
-        width: 100%;
-    }
+
 }
 
 .loading {
