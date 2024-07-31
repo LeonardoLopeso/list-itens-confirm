@@ -5,69 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Itens Confirmados</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
     <!-- Import Firebase scripts -->
-    <script type="module" src="list.js"></script>
+    <script type="module" src="./assets/js/list.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="header">
+            <div class="layer"></div>
             <h1>Itens Confirmados para a Festa</h1>
             <a href="index.html">Voltar</a>
         </div>
-        <ul id="item-list" class="columns"></ul>
+        <div id="loading" class="loading">Carregando...</div>
+        <div class="columns">
+            <div class="column">
+                <h2><i class="icon-drink"></i> Bebidas</h2>
+                <ul id="beverage-list"></ul>
+            </div>
+            <div class="column">
+                <h2><i class="icon-meat"></i> Proteínas</h2>
+                <ul id="protein-list"></ul>
+            </div>
+        </div>
     </div>
-
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCyQwMtnQAneAXVp9m181OOIvr_V0TDE4Y",
-            authDomain: "itens-list.firebaseapp.com",
-            projectId: "itens-list",
-            storageBucket: "itens-list.appspot.com",
-            messagingSenderId: "443618326670",
-            appId: "1:443618326670:web:ca97eac33975c6020eb1df",
-            measurementId: "G-HJFY0T0R9E"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const itemList = document.getElementById('item-list');
-
-            // Load items from Firebase
-            const itemsRef = ref(database, 'items');
-            onValue(itemsRef, (snapshot) => {
-                itemList.innerHTML = '';
-                snapshot.forEach((childSnapshot) => {
-                    const item = childSnapshot.val();
-                    addItemToList(item.text, item.name);
-                });
-            });
-
-            function addItemToList(text, name) {
-                const li = document.createElement('li');
-                li.innerHTML = `
-            <span>${text}</span>
-            <span>${name ? name : 'Ninguém'}</span>
-        `;
-
-                if (!name) {
-                    li.style.opacity = '0.5';
-                }
-
-                itemList.appendChild(li);
-            }
-        });
-
-    </script>
 </body>
 
 </html>

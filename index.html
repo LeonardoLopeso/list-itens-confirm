@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Itens para a Festa</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
     <!-- Import Firebase scripts -->
-    <script type="module" src="script.js"></script>
+    <script type="module" src="./assets/js/script.js"></script>
     <!-- Import Toastify CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
@@ -15,116 +15,24 @@
 <body>
     <div class="container">
         <div class="header">
+            <div class="layer"></div>
             <h1>Lista Alencar</h1>
             <a href="list-itens.html">Ver lista de itens assinados</a>
         </div>
-        <ul id="item-list" class="columns"></ul>
+        <div id="loading" class="loading">Carregando...</div>
+        <div class="columns" style="display: none;">
+            <div class="column">
+                <h2><i class="icon-drink"></i> Bebidas</h2>
+                <ul id="beverage-list"></ul>
+            </div>
+            <div class="column">
+                <h2><i class="icon-meat"></i> Proteínas</h2>
+                <ul id="protein-list"></ul>
+            </div>
+        </div>
     </div>
     <!-- Import Toastify JS -->
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-        import { getDatabase, ref, set, update, onValue } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
-
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCyQwMtnQAneAXVp9m181OOIvr_V0TDE4Y",
-            authDomain: "itens-list.firebaseapp.com",
-            projectId: "itens-list",
-            storageBucket: "itens-list.appspot.com",
-            messagingSenderId: "443618326670",
-            appId: "1:443618326670:web:ca97eac33975c6020eb1df",
-            measurementId: "G-HJFY0T0R9E"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const itemList = document.getElementById('item-list');
-
-            // Lista de itens fixa
-            const fixedItems = [
-                "01 Água de Coco (natural) 2L",
-                "01 Água de Coco (natural) 2L",
-                "50 Descartáveis (copo, prato, talher)",
-                "01 Farofa (caseira) 2,5kg",
-                "01 Farofa (caseira) 2,5kg",
-                "01 Refrigerante (Coca-Cola) 2,5L",
-                "01 Refrigerante (Coca-Cola) 2,5L",
-                "01 Refrigerante (Coca-Cola) 2,5L",
-                "01 Refrigerante (Coca-Cola) 2,5L",
-                "01 Refrigerante (Coca-Cola) 2,5L",
-                "01 Refrigerante (Fanta) 2,5L",
-                "01 Refrigerante (Guaraná) 2,5L",
-                "01 Refrigerante (Sprite) 2,5L",
-                "01 Vinagrete (caseiro) 2,5kg",
-                "01 Vinagrete (caseiro) 2,5kg"
-            ];
-
-            // Initialize fixed items in Firebase if they don't exist
-            const itemsRef = ref(database, 'items');
-            onValue(itemsRef, (snapshot) => {
-                if (!snapshot.exists()) {
-                    fixedItems.forEach((itemText, index) => {
-                        set(ref(database, `items/${index}`), {
-                            text: itemText,
-                            name: ''
-                        });
-                    });
-                }
-            });
-
-            // Load items from Firebase
-            onValue(itemsRef, (snapshot) => {
-                itemList.innerHTML = '';
-                snapshot.forEach((childSnapshot) => {
-                    const item = childSnapshot.val();
-                    addItemToList(childSnapshot.key, item.text, item.name);
-                });
-            });
-
-            function addItemToList(key, text, name) {
-                const li = document.createElement('li');
-                li.innerHTML = `
-            <span>${text}</span>
-            <input type="text" class="name-input" placeholder="Seu nome" value="${name}" ${name ? 'disabled' : ''}>
-            <button class="confirm-btn" ${name ? 'disabled' : ''}>${name ? 'Confirmado' : 'Confirmar'}</button>
-        `;
-
-                const nameInput = li.querySelector('.name-input');
-                const confirmBtn = li.querySelector('.confirm-btn');
-
-                confirmBtn.addEventListener('click', () => {
-                    if (nameInput.value.trim() !== '') {
-                        // Update item in Firebase
-                        const itemRef = ref(database, `items/${key}`);
-                        update(itemRef, { name: nameInput.value.trim() });
-                        nameInput.disabled = true;
-                        confirmBtn.disabled = true;
-                        confirmBtn.textContent = 'Confirmado';
-                        confirmBtn.classList.add('confirmed-btn');
-
-                        // Exibir toast de confirmação
-                        Toastify({
-                            text: "Item confirmado com sucesso!",
-                            duration: 3000,
-                            close: true,
-                            gravity: "top",
-                            position: "center",
-                            backgroundColor: "#28a745",
-                            stopOnFocus: true
-                        }).showToast();
-                    }
-                });
-
-                itemList.appendChild(li);
-            }
-        });
-
-    </script>
 </body>
 
 </html>
