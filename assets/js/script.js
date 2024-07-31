@@ -13,21 +13,22 @@ const firebaseConfig = {
     measurementId: "G-HJFY0T0R9E"
 };
 
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-function sortObject(obj) {
-    return Object.keys(obj).sort().reduce((result, key) => {
-        result[key] = obj[key];
-        return result;
-    }, {});
+function sortFixedItems(items) {
+    return items.sort((a, b) => {
+        const cleanTextA = a.text.replace(/^\d+\s/, '');
+        const cleanTextB = b.text.replace(/^\d+\s/, '');
+        return cleanTextA.localeCompare(cleanTextB);
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const beverageList = document.getElementById('beverage-list');
-    const proteinList = document.getElementById('protein-list');
+    // const beverageList = document.getElementById('beverage-list');
+    // const proteinList = document.getElementById('protein-list');
+    const allItems = document.getElementById('itens-list');
     const loading = document.getElementById('loading');
     const columns = document.querySelector('.columns');
 
@@ -69,13 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
         { text: "01 Linguiça (toscana) 1kg", category: "protein" },
     ];
 
-    const itensSorted = sortObject(fixedItems);
+    // Ordenar os itens fixos
+    const sortedFixedItems = sortFixedItems(fixedItems);
 
     // Initialize fixed items in Firebase if they don't exist
     const itemsRef = ref(database, 'items');
     onValue(itemsRef, (snapshot) => {
         if (!snapshot.exists()) {
-            itensSorted.forEach((item, index) => {
+            sortedFixedItems.forEach((item, index) => {
                 set(ref(database, `items/${index}`), {
                     text: item.text,
                     category: item.category,
@@ -87,15 +89,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load items from Firebase
     onValue(itemsRef, (snapshot) => {
-        beverageList.innerHTML = '';
-        proteinList.innerHTML = '';
+        // beverageList.innerHTML = '';
+        allItems.innerHTML = '';
+
+        const items = [];
+
         snapshot.forEach((childSnapshot) => {
             const item = childSnapshot.val();
-            if (item.category === 'beverage') {
-                addItemToList(beverageList, childSnapshot.key, item.text, item.name);
-            } else if (item.category === 'protein') {
-                addItemToList(proteinList, childSnapshot.key, item.text, item.name);
-            }
+            items.push({ key: childSnapshot.key, ...item });
+        });
+
+        const sortedItems = sortFixedItems(items);
+
+        sortedItems.forEach((item) => {
+            addItemToList(allItems, item.key, item.text, item.name);
+            // if (item.category === 'beverage') {
+            //     addItemToList(beverageList, item.key, item.text, item.name);
+            // } else if (item.category === 'protein') {
+            //     addItemToList(proteinList, item.key, item.text, item.name);
+            // }
         });
 
         // Esconder o loader e mostrar as colunas

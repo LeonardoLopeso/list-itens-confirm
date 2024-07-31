@@ -18,27 +18,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
 
-    const beverageList = document.getElementById('beverage-list');
-    const proteinList = document.getElementById('protein-list');
+    const itensList = document.getElementById('itens-list');
+    // const beverageList = document.getElementById('beverage-list');
+    // const proteinList = document.getElementById('protein-list');
     const loading = document.getElementById('loading');
     const columns = document.querySelector('.columns');
 
     // Mostrar o loader
     loading.style.display = 'block';
-    columns.style.display = 'none';
+
+    function sortItems(items) {
+        return items.sort((a, b) => {
+            const cleanTextA = a.text.replace(/^\d+\s/, '');
+            const cleanTextB = b.text.replace(/^\d+\s/, '');
+            return cleanTextA.localeCompare(cleanTextB);
+        });
+    }
 
     // Load items from Firebase
     const itemsRef = ref(database, 'items');
     onValue(itemsRef, (snapshot) => {
-        beverageList.innerHTML = '';
-        proteinList.innerHTML = '';
+        // beverageList.innerHTML = '';
+        // proteinList.innerHTML = '';
+
+        const items = [];
+
         snapshot.forEach((childSnapshot) => {
             const item = childSnapshot.val();
-            if (item.category === 'beverage') {
-                addItemToList(beverageList, item.text, item.name);
-            } else if (item.category === 'protein') {
-                addItemToList(proteinList, item.text, item.name);
-            }
+            items.push(item);
+        });
+
+        const sortedItems = sortItems(items);
+
+        sortedItems.forEach((item) => {
+            addItemToList(itensList, item.text, item.name);
+
+            // if (item.category === 'beverage') {
+            //     addItemToList(beverageList, item.text, item.name);
+            // } else if (item.category === 'protein') {
+            //     addItemToList(proteinList, item.text, item.name);
+            // }
         });
 
         // Esconder o loader e mostrar as colunas
