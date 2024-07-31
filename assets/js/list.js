@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function addItemToList(list, text, name) {
         const li = document.createElement('li');
         li.innerHTML = `
-            <span><i class="bi bi-handbag"></i> ${text}</span>
-            <span><i class="bi bi-person"></i> ${name ? name : 'Ninguém'}</span>
+            <span>${text}</span>
+            <span>${name ? name : 'Ninguém'}</span>
         `;
 
         if (!name) {

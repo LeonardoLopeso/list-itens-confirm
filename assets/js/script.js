@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function addItemToList(list, key, text, name) {
         const li = document.createElement('li');
         li.innerHTML = `
-            <span><i class="bi bi-handbag"></i> ${text}</span>
+            <span>${text}</span>
             <div class="buttons-container">
                 <input type="text" class="name-input" placeholder="Seu nome" value="${name}" ${name ? 'disabled' : ''}>
                 <button class="confirm-btn" ${name ? 'disabled' : ''}>${name ? 'Assinado' : 'Não assinado'}</button>

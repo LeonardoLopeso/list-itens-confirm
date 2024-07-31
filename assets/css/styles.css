@@ -169,8 +169,8 @@ li span {
     height: 35px;
     padding: 0 10px;
     border: none;
-    background-color: #007bff;
-    /* background-image: linear-gradient(to left, #FAA632, #C33539); */
+    /* background-color: #007bff; */
+    background-image: linear-gradient(to left, #FAA632, #C33539);
     color: white;
     border-radius: 4px;
     cursor: pointer;
