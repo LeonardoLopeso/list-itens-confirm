@@ -18,6 +18,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+function sortObject(obj) {
+    return Object.keys(obj).sort().reduce((result, key) => {
+        result[key] = obj[key];
+        return result;
+    }, {});
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const beverageList = document.getElementById('beverage-list');
     const proteinList = document.getElementById('protein-list');
@@ -62,11 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
         { text: "01 Linguiça (toscana) 1kg", category: "protein" },
     ];
 
+    const itensSorted = sortObject(fixedItems);
+
     // Initialize fixed items in Firebase if they don't exist
     const itemsRef = ref(database, 'items');
     onValue(itemsRef, (snapshot) => {
         if (!snapshot.exists()) {
-            fixedItems.forEach((item, index) => {
+            itensSorted.forEach((item, index) => {
                 set(ref(database, `items/${index}`), {
                     text: item.text,
                     category: item.category,
