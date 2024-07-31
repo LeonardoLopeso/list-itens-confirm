@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lista de itens fixa
     const fixedItems = [
+        { text: "04 Sacos de Gelo", category: "beverage" },
         { text: "01 Água de Coco (natural) 2L", category: "beverage" },
         { text: "01 Água de Coco (natural) 2L", category: "beverage" },
         { text: "50 Descartáveis (copo, prato, talher)", category: "beverage" },
@@ -105,6 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (name) {
             li.classList.add('confirmed-item');
+            li.style.display = 'none';
         }
 
         confirmBtn.addEventListener('click', () => {
@@ -126,6 +128,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     gravity: "top",
                     position: "center",
                     backgroundColor: "#28a745",
+                    stopOnFocus: true
+                }).showToast();
+            } else {
+                Toastify({
+                    text: "Preencha o campo com o seu nome!",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#dc3545",
                     stopOnFocus: true
                 }).showToast();
             }

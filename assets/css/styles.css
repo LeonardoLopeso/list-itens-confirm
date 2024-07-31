@@ -29,7 +29,7 @@ body {
     padding: 20px 0;
     align-items: center;
     flex-direction: column;
-    background-image: url("../alencar-festa.jpeg");
+    background-image: url("../banner.svg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -62,11 +62,11 @@ a {
     font-size: 16px;
     transition: all 0.3s ease;
     z-index: 3;
-    background-color: rgba(167, 127, 40, 0.8);
+    /* background-color: rgba(167, 127, 40, 0.8); */
 }
 
 a:hover {
-    background-color: rgba(167, 127, 40, 1);
+    background-color: rgba(167, 127, 40, 0.8);
     color: #fff;
 }
 
@@ -122,6 +122,7 @@ li span {
     font-size: 14px;
     font-weight: 600;
     color: #333;
+    padding-right: 5px;
 }
 
 .name-input {
@@ -135,7 +136,8 @@ li span {
 
 .confirm-btn {
     flex: 1;
-    padding: 5px 10px;
+    align-items: center;
+    height: 35px;
     border: none;
     background-color: #007bff;
     color: white;
