@@ -188,6 +188,21 @@ li span {
     /* background: rgb(131,58,180); */
     background: linear-gradient(90deg, rgb(58, 180, 103) 0%, rgba(29, 253, 167, 0.393)50%, rgb(69, 252, 209) 100%);
 }
+.itens-signature {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.confirmed-item .itens-signature span:last-child {
+    color: #28a745;
+    font-size: 20px;
+    text-align: right;
+}
+.confirmed-item .itens-signature > span:nth-child(1) {
+    text-decoration: line-through;
+    color:rgba(0, 0, 0, .4)
+}
 
 @media screen and (max-width: 760px) {
     .buttons-container {
@@ -212,6 +227,10 @@ li span {
         align-items: flex-start;
         gap: 10px;
     }
+    .confirmed-item .itens-signature {
+        flex-direction: column;
+    }
+
 }
 
 @media screen and (max-width: 420px) {

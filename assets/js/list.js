@@ -68,8 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function addItemToList(list, text, name) {
         const li = document.createElement('li');
         li.innerHTML = `
-            <span>${text}</span>
-            <span>${name ? name : 'Ninguém'}</span>
+            <div class="itens-signature">
+                <span>${text}</span>
+                <div class="wrapper-user-confirmed">
+                    <span>${name ? name : 'Ninguém'}</span>
+                    <span>${name ? '<i class="bi bi-check-lg"></i>' : ''}</span>
+                </div>
+            </div>
         `;
 
         if (!name) {
