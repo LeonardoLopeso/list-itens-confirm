@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>${text}</span>
             <div class="buttons-container">
                 <input type="text" class="name-input" placeholder="Seu nome" value="${name}" ${name ? 'disabled' : ''}>
-                <button class="confirm-btn" ${name ? 'disabled' : ''}>${name ? 'Assinado' : 'Não assinado'}</button>
+                <button class="confirm-btn" ${name ? 'disabled' : ''}>${name ? 'Assinado' : 'Assinar'}</button>
             </div>
         `;
         const nameInput = li.querySelector('.name-input');
