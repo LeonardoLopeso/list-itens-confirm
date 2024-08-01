@@ -17,6 +17,7 @@ body {
 
 .container {
     width: 100%;
+    min-height: calc(100vh - 99px);
     padding-bottom: 42px;
     text-align: center;
 }
@@ -202,6 +203,18 @@ li span {
 .confirmed-item .itens-signature > span:nth-child(1) {
     text-decoration: line-through;
     color:rgba(0, 0, 0, .4)
+}
+
+footer {
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+    color: #999;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 32px 0;
+    background: rgba(0, 0, 0, .03);
 }
 
 @media screen and (max-width: 760px) {
