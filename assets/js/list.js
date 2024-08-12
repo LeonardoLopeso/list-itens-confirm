@@ -66,10 +66,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function addItemToList(list, text, name) {
+        let break_line = false;
+        let text2 = '';
+        if (text.includes('-')) {
+            text2 = text.split('-')[1];
+            break_line = true;
+        }
+
         const li = document.createElement('li');
+        
         li.innerHTML = `
             <div class="itens-signature">
-                <span>${text}</span>
+                <div class="text-wrapper">
+                    <span>${break_line ? text.split('-')[0] : text}</span>
+                    ${break_line ? `<br> <span>${text2}</span>` : ''}
+                </div>
                 <div class="wrapper-user-confirmed">
                     <span>${name ? name : 'Ninguém'}</span>
                     <span>${name ? '<i class="bi bi-check-lg"></i>' : ''}</span>

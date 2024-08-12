@@ -142,7 +142,12 @@ li {
     border-radius: 4px;
 }
 
-li span {
+li .text-wrapper {
+    text-align: left;
+    color: #383838;
+}
+
+li .text-wrapper span {
     flex: 2;
     text-align: left;
     font-size: 14px;
@@ -195,12 +200,18 @@ li span {
     justify-content: space-between;
     align-items: center;
 }
+.confirmed-item .itens-signature {
+    font-size: 14px;
+    font-weight: 600;
+    color: #383838;
+}
 .confirmed-item .itens-signature span:last-child {
     color: #28a745;
     font-size: 20px;
     text-align: right;
 }
-.confirmed-item .itens-signature > span:nth-child(1) {
+.confirmed-item .itens-signature > .text-wrapper span:nth-child(1) {
+    font-size: 14px;
     text-decoration: line-through;
     color:rgba(0, 0, 0, .4)
 }
@@ -240,7 +251,7 @@ footer {
         align-items: flex-start;
         gap: 10px;
     }
-    .confirmed-item .itens-signature {
+    .confirmed-item .itens-signature .text-wrapper {
         flex-direction: column;
     }
 

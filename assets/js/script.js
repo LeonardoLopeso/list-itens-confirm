@@ -116,9 +116,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function addItemToList(list, key, text, name) {
+        let break_line = false;
+        let text2 = '';
+        if (text.includes('-')) {
+            text2 = text.split('-')[1];
+            break_line = true;
+        }
+
         const li = document.createElement('li');
         li.innerHTML = `
-            <span>${text}</span>
+            <div class="text-wrapper">
+                <span>${break_line ? text.split('-')[0] : text}</span>
+                ${break_line ? `<br> <span>${text2}</span>` : ''}
+            </div>
             <div class="buttons-container">
                 <input type="text" class="name-input" placeholder="Seu nome" value="${name}" ${name ? 'disabled' : ''}>
                 <button class="confirm-btn" ${name ? 'disabled' : ''}>${name ? 'Assinado' : 'Assinar'}</button>
