@@ -270,3 +270,13 @@ footer {
     display: inline-block;
     margin-top: 10%;
 }
+
+@media print {
+    ul li {
+        display: none;
+    }
+    ul li.confirmed-item {
+        display: flex;
+        border-bottom: 1px dashed #ccc !important;
+    }
+}
