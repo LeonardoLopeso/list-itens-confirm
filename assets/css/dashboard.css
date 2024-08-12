@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.dashboard-container {
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    /* background-color: #fff; */
+    padding: 20px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+h1 {
+    text-align: left;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.metrics {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.metric {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 30%;
+    text-align: center;
+    /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); */
+}
+
+.metric h2 {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.metric p {
+    font-size: 2em;
+    color: #333;
+}
+
+#signer-stats {
+    flex: 1 1 30%;
+    width: 100%;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+}
+
+#signer-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 2px;
+    overflow-y: auto;
+    max-height: 320px;
+
+    .signer-box {
+        display: flex;
+        justify-content: space-between;
+        background-color: #f9f9f9;
+        border-bottom: 1px dashed #ddd;
+        padding: 10px;
+        color: #555;
+        font-size: 14px;
+        font-weight: 600;
+    }
+}
+
+#item-distribution-chart {
+    max-width: 100%;
+    height: 300px;
+}

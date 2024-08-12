@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="./assets/css/dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Meu Dashboard</h1>
+        <div class="metrics">
+            <div class="metric">
+                <h2>Total de Itens</h2>
+                <p id="all-items">0</p>
+            </div>
+            <div class="metric">
+                <h2>Total de Itens Confirmados</h2>
+                <p id="total-confirmed">0</p>
+            </div>
+            <div class="metric">
+                <h2>Itens Confirmados vs Pendentes</h2>
+                <p id="confirmed-vs-pending">0 / 0</p>
+            </div>
+            <div class="metric">
+                <h2>Distribuição por Tipo de Item</h2>
+                <div id="item-distribution-chart"></div>
+            </div>
+            <div id="signer-stats">
+                <h3>Assinaturas por Pessoa</h3>
+                <div id="signer-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.2/echarts.min.js"></script>
+    <script type="module" src="./assets/js/dashboard.js"></script>
+</body>
+</html>
