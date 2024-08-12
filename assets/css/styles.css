@@ -272,11 +272,25 @@ footer {
 }
 
 @media print {
+    .header a {
+        display: none;
+    }
+
+    .container > div.columns > div > h2 {
+        margin-bottom: 32px;
+        color: #444;
+    }
+
     ul li {
         display: none;
     }
     ul li.confirmed-item {
         display: flex;
         border-bottom: 1px dashed #ccc !important;
+    }
+
+    ul li.confirmed-item .itens-signature > .text-wrapper span:nth-child(1) {
+        text-decoration: none;
+        color: rgba(0, 0, 0, .6);
     }
 }
