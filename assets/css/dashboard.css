@@ -67,7 +67,7 @@ body {
 .dash-header .dash-header__buttons button {
     align-items: center;
     height: 35px;
-    padding: 0 10px;
+    padding: 5px 20px;
     border: none;
     font-size: 1rem;
     font-weight: bold;
@@ -233,4 +233,14 @@ form {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .dashboard-container {
+        padding: 10px;
+    }
+    
+    .modal-content {
+        width: 90%;
+    }
 }
