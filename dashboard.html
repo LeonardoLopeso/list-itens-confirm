@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="./assets/css/dashboard.css">
+    <!-- Import Toastify CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
+
 <body>
     <div class="dashboard-container">
-        <h1>Meu Dashboard</h1>
+        <div id="loading" class="loading">
+            <div class="layer"></div>
+            <h1>Carregando...</h1>
+        </div>
+        <div class="dash-header">
+            <h1>Meu Dashboard</h1>
+
+            <div class="dash-header__buttons">
+                <a href="index.html">Início</a>
+                <button class="new">Novo item</button>
+            </div>
+        </div>
         <div class="metrics">
             <div class="metric">
                 <h2>Total de Itens</h2>
@@ -33,7 +48,49 @@
         </div>
     </div>
 
+    <!-- Modal para adicionar novo item -->
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Adicionar novo item</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="login-wrapper">
+                    <div class="form-group">
+                        <label for="password">Informe a Senha</label>
+                        <input type="password" id="password" name="password">
+                        <p class="error-message"></p>
+                    </div>
+                    <div class="form-group">
+                        <button id="verify-password">Verificar</button>
+                    </div>
+                </div>
+                <form id="new-item-form">
+                    <div class="form-group">
+                        <label for="item-name">Nome do Item</label>
+                        <input type="text" id="item-name" name="item-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="item-type">Tipo de Item</label>
+                        <select id="item-type" name="item-type">
+                            <option value="">Selecione um tipo de item</option>
+                            <option value="beverage">Bebida</option>
+                            <option value="protein">Proteína</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Adicionar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Toastify JS -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.2/echarts.min.js"></script>
     <script type="module" src="./assets/js/dashboard.js"></script>
 </body>
+
 </html>

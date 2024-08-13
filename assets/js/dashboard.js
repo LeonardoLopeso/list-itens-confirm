@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -26,6 +26,10 @@ function sortItems(items) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Mostrar o loader
+    loading.style.display = 'flex';
+
+    const allItemsElement = document.getElementById('all-items');
     const totalConfirmedElement = document.getElementById('total-confirmed');
     const confirmedVsPendingElement = document.getElementById('confirmed-vs-pending');
     const itemDistributionChartElement = document.getElementById('item-distribution-chart');
@@ -99,6 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         signerListElement.innerHTML = '';
 
+        if (allItemsElement) {
+            allItemsElement.textContent = totalItems;
+        }
+
         // Update metrics
         if (totalConfirmedElement) {
             totalConfirmedElement.textContent = confirmedItems;
@@ -136,6 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             signerListElement.appendChild(divBox);
         }
+
+        // Hide loader
+        loading.style.display = 'none';
     });
 
     function updateChart(chartElement, data) {
@@ -144,16 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const values = Object.values(data);
 
         const option = {
-            title: {
-                text: 'Distribuição dos Itens',
-                left: 'center'
-            },
             tooltip: {
                 trigger: 'item'
             },
             legend: {
-                orient: 'vertical',
-                left: 'left'
+                orient: 'horizontal',
+                left: 'center'
             },
             series: [
                 {
@@ -178,4 +185,117 @@ document.addEventListener('DOMContentLoaded', () => {
         chart.setOption(option);
     }
 });
+
+// Evento para abri o modal e preencher o formulário
+const modal = document.querySelector('.modal');
+const modalBody = document.querySelector('.modal-body');
+const openModalButton = document.querySelector('.new');
+const closeModalButton = document.querySelector('.close-modal');
+const newForm = document.querySelector('#new-item-form');
+const itemNameInput = document.querySelector('#item-name');
+const itemTypeInput = document.querySelector('#item-type');
+const btnPasswd = document.querySelector('#verify-password');
+const loginScreen = document.querySelector('.login-wrapper');
+
+openModalButton.addEventListener('click', () => {
+    modal.style.display = 'block';
+});
+closeModalButton.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+btnPasswd.addEventListener('click', () => {
+    const password = document.querySelector('#password').value;
+    if (password === '270854') {
+        loginScreen.style.display = 'none';
+        newForm.style.display = 'flex';
+    } else {
+        Toastify({
+            text: "Senha inválida.",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "center",
+            backgroundColor: "#dc3545",
+            stopOnFocus: true
+        }).showToast();
+        document.querySelector('#password').value = '';
+        document.querySelector('#password').focus();
+    }
+})
+newForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const itemName = itemNameInput.value.trim();
+    const itemType = itemTypeInput.value;
+
+    // Verificar se o nome e o tipo de item foram preenchidos
+    if (!itemName || !itemType) {
+        Toastify({
+            text: "Por favor, preencha todos os campos.",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "center",
+            backgroundColor: "#dc3545",
+            stopOnFocus: true
+        }).showToast();
+        return;
+    }
+
+    addItem(itemName, itemType);
+    modal.style.display = 'none';
+});
+
+function addItem(name, type) {
+    if (name && type) {
+        let totalItems = 0;
+
+        // Get a reference to the 'items' path in the database
+        const itemsRef = ref(database, 'items');
+
+        onValue(itemsRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                totalItems++;
+            })
+        })
+
+        console.log(totalItems + 2);
+        // Create a new item object
+        const newItem = {
+            text: name,
+            category: type,
+            name: ''
+        };
+
+        // Push the new item to Firebase
+        set(ref(database, `items/${totalItems + 2}`), newItem)
+            .then(() => {
+                // Exibir toast de confirmação
+                Toastify({
+                    text: "Item confirmado com sucesso!",
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#28a745",
+                    stopOnFocus: true
+                }).showToast();
+                document.getElementById('new-item-form').reset(); // Clear the form
+                document.querySelector('#password').value = '';
+                loginScreen.style.display = 'block';
+                newForm.style.display = 'none';
+            })
+            .catch((error) => {
+                Toastify({
+                    text: 'Erro ao adicionar item: ' + error.message,
+                    duration: 3000,
+                    close: true,
+                    gravity: "top",
+                    position: "center",
+                    backgroundColor: "#dc3545",
+                    stopOnFocus: true
+                }).showToast();
+            });
+    }
+}
+
 
