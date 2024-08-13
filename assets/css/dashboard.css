@@ -243,10 +243,6 @@ form {
         padding: 10px;
     }
     .dash-header h1 {
-        font-size: 18px;
-    }
-    
-    .modal-content {
-        width: 90%;
+        font-size: 24px;
     }
 }
