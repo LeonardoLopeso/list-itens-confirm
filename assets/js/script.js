@@ -55,6 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { text: "Regrigerante", category: "beverage" },
         { text: "Regrigerante", category: "beverage" },
         { text: "Regrigerante", category: "beverage" },
+        { text: "Suco", category: "beverage" },
+        { text: "Suco", category: "beverage" },
     ];
 
     // Ordenar os itens fixos
